@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:moora_money_banking_flutter/services/ApiProvider.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/home_screen/home_screen.dart';
 
 void main() {
-  runApp(OurApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ApiProvider(),
+      child: OurApp(),
+    ),
+  );
 }
 
 class OurApp extends StatelessWidget {
@@ -11,9 +18,11 @@ class OurApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: OurHomeScreen(),
+    return Consumer<ApiProvider>(
+      builder: (context, notifier, _) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: OurHomeScreen(),
+      ),
     );
   }
 }
